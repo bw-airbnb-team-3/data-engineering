@@ -18,10 +18,10 @@ def create_app():
     @app.route('/data', methods=['POST'])
     @app.route('/data/getdata', methods=['GET'])
     def data():
-        test_dict = {'Ideal Price': 99.99, 'Nearby Listings':
-                                            {'Neighborhood a': 'Address1',
-                                             'Neighborhood b': 'Address2',
-                                              'Neighborhood c': 'Address3'}
+        test_dict = {'ideal_price': 99.99, 'nearby_listings':
+                                            {'neighborhood_a': 'address1',
+                                             'neighborhood_b': 'address2',
+                                              'neighborhood_c': 'address3'}
                                             }
         return jsonify(test_dict)
 

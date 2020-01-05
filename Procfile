@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath flask-app app:APP --preload --log-file - --log-level debug
+web: gunicorn flask-app:APP --preload --log-file - --log-level debug

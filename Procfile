@@ -1,1 +1,1 @@
-web: gunicorn flask:app:APP -t 120
+web: gunicorn app:flask.APP -t 120

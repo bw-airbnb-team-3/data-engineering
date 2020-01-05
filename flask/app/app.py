@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, request, jsonify
+from flask import Flask, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 #from ML page import model
 
@@ -13,7 +13,18 @@ def create_app():
 
     @app.route('/')
     def root():
-        return render_template('flask.html', title='Get some data!', listings=Listing.query.all())
+        return render_template('flask.html', title='Get some data!') #listings=Listing.query.all())
+
+    @app.route('/data', methods=['POST'])
+    @app.route('/data/getdata', methods=['GET'])
+    def data():
+        test_dict = {'Ideal Price': 99.99, 'Nearby Listings':
+                                            {'Neighborhood a': 'Address1',
+                                             'Neighborhood b': 'Address2',
+                                              'Neighborhood c': 'Address3'}
+                                            }
+        return jsonify(test_dict)
+
 
     @app.route('/predict', methods=['GET', 'POST'])
     def prediction():

@@ -6,8 +6,8 @@
     <title>{{ title }}</title>
 
       {% block content %}
-        Fetching inputs...
-        Returning data...
+      <form action="/data" method="post">
+        <input type="submit" name='getdata' value="Get data!">
       {% endblock %}
   </body>
 </html>

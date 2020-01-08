@@ -15,8 +15,24 @@ def create_app():
     def root():
         return render_template('flask.html', title='Get some data!') #listings=Listing.query.all())
 
-    @app.route('/data', methods=['POST'])
-    @app.route('/data/getdata', methods=['GET'])
+
+
+    @app.route('/predict', methods=['GET', 'POST'])
+    def prediction():
+        """Get user inputs POSTed to us and then predict with them them """
+        user_features = request.get_json(force=True, silent=True) # Force = mimetype ignored, silent = returns None if fails
+        user_features = ['TBD']
+        # Get pickle data - xgbpipe = pickle.load(open('xgbpipe.pkl', 'rb'))
+        df = pd.read_csv('tbd')
+        # Run prediction from pickle data ?
+        # Import function from whatever py file we end up making and call it here
+        # Store results
+        results = None
+        return jsonify(results)
+
+
+    @app.route('/data', methods=['POST']) #Getting data posted to us
+    @app.route('/data/getdata', methods=['GET']) #Serving Data
     def data():
         test_dict = {'ideal_price': 99.99, 'nearby_listings':
                                             {'neighborhood_a': 'address1',
@@ -26,17 +42,5 @@ def create_app():
         return jsonify(test_dict)
 
 
-    @app.route('/predict', methods=['GET', 'POST'])
-    def prediction():
-        """GET user inputs and then POST them """
-        user_features = request.get_json(force=True, silent=True) # Force = mimetype ignored, silent = returns None if fails
-        features = ['TBD']
-        # Get pickle data - xgbpipe = pickle.load(open('xgbpipe.pkl', 'rb'))
-        df = pd.read_csv('tbd')
-        # Run prediction from pickle data ?
-        # Import function from whatever py file we end up making and call it here
-        # Store results
-        results = None
-        return jsonify(results)
 
     return app

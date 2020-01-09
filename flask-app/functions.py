@@ -19,5 +19,4 @@ def encode_data(df):
     label_encoder = LabelEncoder()
     for feature in categorical_features:
         df[feature] = label_encoder.fit_transform(df[feature])
-    print(df)
     return df

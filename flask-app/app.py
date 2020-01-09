@@ -1,5 +1,5 @@
 import pandas as pd
-from flask import Flask, render_template, jsonify
+from flask import Flask, request, render_template, jsonify
 import requests
 from flask_sqlalchemy import SQLAlchemy
 import pickle
@@ -9,34 +9,37 @@ from .functions import *
 def create_app():
     """Create and configure an instance of the Flask application"""
     app = Flask(__name__)
-    # These comments are left until we're sure we're not using our own DB
-    # app.config['SQLALCHEMY_DATABASE_URI'] = config('DATABASE_URL')
-    # app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    # DB.init_app(app)
 
     @app.route('/')
     def root():
         return render_template('flask.html', title='Get some data!') #listings=Listing.query.all())
 
+    @app.route('/api/dsListings', methods=['GET'])
+    def api():
+        #user_features=request.json['key']
+        #loop over each feature
+        user_features = request.get_json()
+        return user_features
 
     @app.route('/predict', methods=['GET', 'POST'])
     def prediction():
         """Get user inputs POSTed to us and then predict with them them """
-        user_features = pull_data()
+        #user_features = pull_data()
 
         # Force = mimetype ignored, silent = returns None if fails
-        print(user_features)
-        #user_features = ['TBD']
+        #print(user_features)
+
         xgb_model = pickle.load(open('xgb_reg.pkl', 'rb'))
 
-        sample = {'price': 122.0, 'beds': 3, 'bedrooms': 3, 'bathrooms': 2.0, 'zipcode': 90230,
-                'neighbourhood': 'Culver City', 'property_type': 'Condominium', 'room_type': 'Entire home/apt',
-                'accommodates': 6, 'guests_included': 3, 'minimum_nights': 30, 'instant_bookable': 0 }
+        sample = {'beds': 1, 'bedrooms': 1.0, 'bathrooms': 1.0, 'accommodates': 2, 'guests_included': 1,
+                 'minimum_nights': 30, 'instant_bookable': 0, 'zipcode': 90706, 'neighbourhood': 'Bellflower',
+                  'property_type': 'Apartment', 'room_type': 'Entire home/apt'
+                  }
         data = transform_json(sample)
         df = encode_data(data)
 
-        #prediction = xgb_model.predict(df)
-        #print(prediction)
+        prediction = xgb_model.predict(df)
+        print(prediction)
         #results = None
         return  'Hi'
 

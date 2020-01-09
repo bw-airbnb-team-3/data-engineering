@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template
+from decouple import config
+from flask import Flask, jsonify, redirect, render_template, session, url_for
 from .functions import *
 import pandas as pd
 import pickle
@@ -9,6 +10,7 @@ import requests
 def create_app():
     """Create and configure an instance of the Flask application"""
     app = Flask(__name__)
+    app.config['SECRET_KEY'] = config('FLASK_KEY')
 
     @app.route('/')
     def root():
@@ -36,8 +38,11 @@ def create_app():
         prediction = xgb_model.predict(df)
         predict_dict = {}
         predict_dict['Optimal Price'] = round(float(prediction[0]), 2)
-        #results = None
-        return jsonify(predict_dict)
+
+        # Stores predict_dict in the session, so it can be gotten from /data
+        session['price'] = predict_dict
+
+        return redirect(url_for('data'))
 
 
     @app.route('/data', methods=['POST']) #Getting data posted to us
@@ -48,7 +53,9 @@ def create_app():
                                              'neighborhood_b': 'address2',
                                               'neighborhood_c': 'address3'}
                                             }
-        return jsonify(test_dict)
+        price = session.get('price')
+
+        return jsonify(price)
 
 
 

@@ -1,6 +1,9 @@
 import pandas as pd
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, render_template, jsonify
+import requests
 from flask_sqlalchemy import SQLAlchemy
+import pickle
+from .functions import *
 #from ML page import model
 
 def create_app():
@@ -16,19 +19,26 @@ def create_app():
         return render_template('flask.html', title='Get some data!') #listings=Listing.query.all())
 
 
-
     @app.route('/predict', methods=['GET', 'POST'])
     def prediction():
         """Get user inputs POSTed to us and then predict with them them """
-        user_features = request.get_json(force=True, silent=True) # Force = mimetype ignored, silent = returns None if fails
-        user_features = ['TBD']
-        # Get pickle data - xgbpipe = pickle.load(open('xgbpipe.pkl', 'rb'))
-        df = pd.read_csv('tbd')
-        # Run prediction from pickle data ?
-        # Import function from whatever py file we end up making and call it here
-        # Store results
-        results = None
-        return jsonify(results)
+        user_features = pull_data()
+
+        # Force = mimetype ignored, silent = returns None if fails
+        print(user_features)
+        #user_features = ['TBD']
+        xgb_model = pickle.load(open('xgb_reg.pkl', 'rb'))
+
+        sample = {'price': 122.0, 'beds': 3, 'bedrooms': 3, 'bathrooms': 2.0, 'zipcode': 90230,
+                'neighbourhood': 'Culver City', 'property_type': 'Condominium', 'room_type': 'Entire home/apt',
+                'accommodates': 6, 'guests_included': 3, 'minimum_nights': 30, 'instant_bookable': 0 }
+        data = transform_json(sample)
+        df = encode_data(data)
+
+        #prediction = xgb_model.predict(df)
+        #print(prediction)
+        #results = None
+        return  'Hi'
 
 
     @app.route('/data', methods=['POST']) #Getting data posted to us

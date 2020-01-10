@@ -44,7 +44,7 @@ def create_app():
         # Stores predict_dict in the session, so it can be gotten from /data
         # session['price'] = predict_dict
 
-        return jsonify(preict_dict)
+        return jsonify(predict_dict)
 
 
     @app.route('/data', methods=['POST']) #Getting data posted to us

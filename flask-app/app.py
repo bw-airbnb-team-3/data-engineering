@@ -25,10 +25,10 @@ def create_app():
         user_features = user_features.text.strip('[]')
         print(user_features)
 
-        xgb_model = pickle.load(open('opt_xgb_reg.pkl', 'rb'))
+        xgb_model = pickle.load(open('xgb_reg.pkl', 'rb'))
 
         sample = {'beds': 1, 'bedrooms': 1.0, 'bathrooms': 1.0, 'accommodates': 2, 'guests_included': 1,
-                 'minimum_nights': 2, 'instant_bookable': 0, 'zipcode': 90706, 'neighbourhood': 'Bellflower',
+                 'minimum_nights': 2, 'instant_bookable': 0, 'zipcode': 90706, 'cleaning_fee': 60.00, 'neighbourhood': 'Bellflower',
                   'property_type': 'Apartment', 'room_type': 'Entire home/apt', 'cable tv': True, 'wifi': True, 'kitchen': True,
                  'air conditioning': True, 'pool': True, 'hot tub': True, 'grill': True, 'washer': True, 'dryer': False
                   }

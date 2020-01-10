@@ -3,8 +3,9 @@ import pandas as pd
 from flask import request
 import requests
 
-categorical_features = ['zipcode','neighbourhood','property_type','room_type']
-numeric_features = ['price', 'beds', 'bedrooms', 'bathrooms','accommodates','guests_included','minimum_nights','instant_bookable']
+categorical_features = ['zipcode','property_type','room_type']
+numeric_features = ['price', 'beds', 'bedrooms','accommodates','guests_included','minimum_nights','instant_bookable']
+bool_features = ['tv', 'wifi', 'kitchen', 'air conditioning', 'pool', 'hot tub', 'washer', 'dryer', 'refrigerator', 'iron', 'free parking on premises', 'dishes and silverware', 'microwave']
 
 
 def pull_data():

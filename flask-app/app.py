@@ -29,7 +29,8 @@ def create_app():
 
         sample = {'beds': 1, 'bedrooms': 1.0, 'bathrooms': 1.0, 'accommodates': 2, 'guests_included': 1,
                  'minimum_nights': 2, 'instant_bookable': 0, 'zipcode': 90706, 'neighbourhood': 'Bellflower',
-                  'property_type': 'Apartment', 'room_type': 'Entire home/apt'
+                  'property_type': 'Apartment', 'room_type': 'Entire home/apt', 'Cable TV': True, 'Wifi': True, 'Kitchen': True,
+                 'Air conditioning': True, 'Pool': True, 'Hot tub': True, 'grill': True, 'Washer': True, 'Dryer': False
                   }
         # Change this to user features once we are sure what we're getting #################################################
         data = transform_json(sample)

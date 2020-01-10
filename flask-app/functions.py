@@ -5,7 +5,7 @@ import requests
 
 categorical_features = ['zipcode','property_type','room_type']
 numeric_features = ['price', 'beds', 'bedrooms', 'bathrooms', 'accommodates','guests_included', 'instant_bookable', 'cleaning_fee']
-bool_features = ['tv', 'wifi', 'kitchen', 'air conditioning', 'pool', 'hot tub', 'washer', 'dryer', 'refrigerator', 'iron', 'free parking on premises', 'dishes and silverware', 'microwave']
+bool_features = ['tv', 'wifi', 'kitchen', 'air_conditioning', 'pool', 'hot_tub', 'washer', 'dryer', 'refrigerator', 'iron', 'free_parking', 'dishes_and_silverware', 'microwave']
 
 
 def pull_data():

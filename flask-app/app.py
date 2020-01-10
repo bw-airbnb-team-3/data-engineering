@@ -25,7 +25,7 @@ def create_app():
         user_features = user_features.text.strip('[]')
         print(user_features)
 
-        xgb_model = pickle.load(open('xgb_reg.pkl', 'rb'))
+        xgb_model = pickle.load(open('opt_xgb_reg.pkl', 'rb'))
 
         sample = {'beds': 1, 'bedrooms': 1.0, 'bathrooms': 1.0, 'accommodates': 2, 'guests_included': 1,
                  'minimum_nights': 2, 'instant_bookable': 0, 'zipcode': 90706, 'neighbourhood': 'Bellflower',
@@ -51,7 +51,7 @@ def create_app():
         test_dict = {'ideal_price': 99.99, 'nearby_listings':
                                             {'neighborhood_a': 'address1',
                                              'neighborhood_b': 'address2',
-                                              'neighborhood_c': 'address3'}
+                                             'neighborhood_c': 'address3'}
                                             }
         price = session.get('price')
 
